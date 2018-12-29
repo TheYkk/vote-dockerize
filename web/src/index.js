@@ -69,7 +69,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  var voterId = voterCookie(req.cookies.voterid);
+  var voterId = voterCookie();
 
   var vote = req.body.vote;
 
@@ -106,14 +106,8 @@ app.post('/', function(req, res) {
   }
 });
 
-function voterCookie(cookie) {
-  if (cookie === undefined) {
-    cookie = uuid();
-  } else if (! uuid.isUUID(cookie)) {
-    //bad cookie, reset and send a new one.
-    cookie = uuid();
-  }
-  return cookie;
+function voterCookie() {
+  return uuid();
 }
 
 var server = app.listen(config.server.listenPort, config.server.listenIp, function () {
