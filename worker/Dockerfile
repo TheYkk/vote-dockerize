@@ -11,4 +11,6 @@ ADD . /app
 
 
 #Default command to run on start up
-CMD node src/index.js
+COPY wait-for-it.sh /app
+
+CMD ["./wait-for-it.sh", "rabbitmq:5672", "-t", "120", "--", "node", "src/index.js"]
