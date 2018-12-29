@@ -26,12 +26,16 @@ var config = {
   },
   rabbitmq: {
     host: envs('RABBITMQ_HOST', 'rabbitmq'),
+    username: envs('RABBITMQ_USERNAME', 'guest'),
+    password: envs('RABBITMQ_PASSWORD', 'guest'),
+    port: envs('RABBITMQ_AMQP_PORT', '5672'),
+    vhost: envs('RABBITMQ_VHOST', '%2f'),
     queue: envs('RABBITMQ_QUEUE', 'vote')
   }
 };
 
 var voteQueue = config.rabbitmq.queue;
-var rabbitUrl = util.format('amqp://'+config.rabbitmq.host);
+var rabbitUrl = util.format('amqp://%s:%s@%s:%s/%s', config.rabbitmq.username, config.rabbitmq.password, config.rabbitmq.host, config.rabbitmq.port, config.rabbitmq.vhost);
 var rConn = amqp.connect(rabbitUrl);
 
 logger.token('result', function getResult(req) {

@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    container_name: web
+    hostname: web
     restart: always
     build: ./web
     networks: 
@@ -11,7 +11,7 @@ services:
     depends_on:
       - rabbitmq
   result:
-    container_name: result
+    hostname: result
     restart: always
     build: ./result
     networks:
@@ -21,7 +21,7 @@ services:
     depends_on:
       - postgres
   worker:
-    container_name: worker
+    hostname: worker
     restart: always
     build: ./worker
     networks:
@@ -30,7 +30,7 @@ services:
       - postgres
       - rabbitmq
   postgres:
-    container_name: postgres
+    hostname: postgres
     image: postgres
     restart: always
     networks:
@@ -40,19 +40,21 @@ services:
     ports:
       - "5432:5432"
   rabbitmq:
-    container_name: rabbitmq
-    tty: true
-    image: rabbitmq:management
+    hostname: rabbitmq
+    image: rabbitmq
+    privileged: true
     ports:
-      - 15672:15672
-      - 15671:15671
-      - 5672:5672
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "15671:15671"
+      - "15672:15672"
+      - "25672:25672"
     restart: always
     networks:
       - webnet
     volumes:
       - /var/lib/rabbitmq:/var/lib/rabbitmq
-    
 networks:
   webnet:
     driver: bridge
