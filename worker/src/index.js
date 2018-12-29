@@ -65,4 +65,8 @@ rConn.then(function(conn) {
         }
       });
     });
-  }).catch(console.warn);
+  }).catch(function (err) { 
+    console.error(err);
+    process.exit()
+
+   });

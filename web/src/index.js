@@ -89,7 +89,11 @@ app.post('/', function(req, res) {
         return channel.sendToQueue(voteQueue, new Buffer.from(voteData));
       });
     })
-    .catch(console.warn);
+    .catch(function (err) { 
+      console.error(err);
+      process.exit()
+
+     });
 
     res.cookie('voterid', voterId);
     res.render('index', {
