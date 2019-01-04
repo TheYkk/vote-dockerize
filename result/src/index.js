@@ -34,7 +34,7 @@ var app = express()
 var server = require('http').Server(app)
 var io = require('socket.io')(server)
 
-io.set('transports', ['polling'])
+
 
 io.sockets.on('connection', function (socket) {
   socket.emit('message', { text : 'Welcome!' })
