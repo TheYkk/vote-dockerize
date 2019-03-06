@@ -42,8 +42,8 @@ pool.query({
 var voteQueue = config.rabbitmq.queue;
 var rabbitUrl = util.format('amqp://%s:%s@%s:%s/%s', config.rabbitmq.username, config.rabbitmq.password, config.rabbitmq.host, config.rabbitmq.port, config.rabbitmq.vhost);
 var rConn = amqp.connect(rabbitUrl);
-
-console.log('Starting Worker');
+var datetime = new Date();
+console.log('Starting Worker new=>'+datetime);
 rConn.then(function(conn) {
     return conn.createChannel();
   }).then(function(ch) {

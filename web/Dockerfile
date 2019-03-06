@@ -1,3 +1,4 @@
+
 FROM node:10-alpine
 
 ADD ./package.json /app/package.json
@@ -11,3 +12,4 @@ ADD . /app
 
 
 CMD node src/index.js
+
