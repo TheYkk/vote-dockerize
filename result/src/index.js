@@ -80,7 +80,7 @@ function getVotes() {
     data.allVotesArr = allVotes
     if (debug) console.log("scores", JSON.stringify(data, null, 4))
     io.sockets.emit("scores", JSON.stringify(data))
-    setTimeout(function() { getVotes() }, 5000)
+    setTimeout(function() { getVotes() }, 500)
   })
 }
 

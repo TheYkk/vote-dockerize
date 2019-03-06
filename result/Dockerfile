@@ -1,5 +1,5 @@
 FROM node:10-alpine
-LABEL maintainer="Jason Greathouse <jgreat@jgreat.me>"
+
 
 ADD ./package.json /app/package.json
 WORKDIR /app

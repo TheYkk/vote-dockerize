@@ -1,3 +1,4 @@
+
 var express = require('express');
 var swig = require('swig');
 var bodyParser = require('body-parser');
@@ -69,7 +70,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
-  var voterId = voterCookie(req.cookies.voterid);
+  var voterId = voterCookie();
 
   var vote = req.body.vote;
 
@@ -89,7 +90,11 @@ app.post('/', function(req, res) {
         return channel.sendToQueue(voteQueue, new Buffer.from(voteData));
       });
     })
-    .catch(console.warn);
+    .catch(function (err) { 
+      console.error(err);
+      process.exit()
+
+     });
 
     res.cookie('voterid', voterId);
     res.render('index', {
@@ -106,14 +111,8 @@ app.post('/', function(req, res) {
   }
 });
 
-function voterCookie(cookie) {
-  if (cookie === undefined) {
-    cookie = uuid();
-  } else if (! uuid.isUUID(cookie)) {
-    //bad cookie, reset and send a new one.
-    cookie = uuid();
-  }
-  return cookie;
+function voterCookie() {
+  return uuid();
 }
 
 var server = app.listen(config.server.listenPort, config.server.listenIp, function () {

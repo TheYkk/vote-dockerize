@@ -1,0 +1,3 @@
+# Voter
+
+Auto vote
